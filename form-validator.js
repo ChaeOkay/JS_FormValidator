@@ -1,13 +1,12 @@
-// shorthand for $(document).ready();
 function Validator(){
   this.errors = [];
   this.valid = true
 };
 
 Validator.prototype.checkEmail = function(email){
-  //come back for regex
-  //a = regex
-  if (email != "a"){
+ var format = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
+
+  if (email.match(format) == null ){
     this.errors.push("Must be a valid email");
     this.valid = false;
   };
@@ -20,13 +19,29 @@ Validator.prototype.checkPasswordNumeric = function(password){
   };
 };
 
+Validator.prototype.checkPasswordCaps = function(password){
+  if (password != "a"){
+    this.errors.push("Password must have at least one capital letter");
+    this.valid = false;
+  };
+};
+
+Validator.prototype.checkPasswordLength = function(password){
+  if (password != "a"){
+    this.errors.push("Password must have at least one capital letter");
+    this.valid = false;
+  };
+};
+
 Validator.prototype.validate = function(email, password){
   this.checkEmail(email);
   this.checkPasswordNumeric(password);
-  // this.checkPasswordCaps(password)
+  this.checkPasswordCaps(password);
+  this.checkPasswordLength(password);
 };
 
 Validator.prototype.show_errors = function(){
+
   $.each(this.errors, function(index, value){
     $('#errors').append("<li>" + value + "</li>");
   });
@@ -34,6 +49,7 @@ Validator.prototype.show_errors = function(){
   validator.errors = [];
 }
 
+// shorthand for $(document).ready();
 $(function(){
   validator = new Validator();
 
