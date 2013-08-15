@@ -13,13 +13,17 @@ Validator.prototype.checkEmail = function(email){
   };
 };
 
-Validator.prototype.checkPassword = function(password){
- //come back and fill out password
-}
+Validator.prototype.checkPasswordNumeric = function(password){
+  if (password != "a"){
+    this.errors.push("Password must have at least one numeric character (0-9");
+    this.valid = false;
+  };
+};
 
 Validator.prototype.validate = function(email, password){
   this.checkEmail(email);
-  this.checkPassword(password)
+  this.checkPasswordNumeric(password);
+  // this.checkPasswordCaps(password)
 };
 
 Validator.prototype.show_errors = function(){
