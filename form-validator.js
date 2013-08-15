@@ -18,22 +18,20 @@ Validator.prototype.checkEmail = function(email){
 
 Validator.prototype.checkPasswordNumeric = function(password){
   var format = /\d/;
-  if (password.match(format) == null ){
-    this.errors.push("Password must have at least one numeric character (0-9");
-    this.valid = false;
-  };
+  var message = "Password must have at least one numeric character (0-9)"
+  this.eval_input(password, format, message);
 };
 
 Validator.prototype.checkPasswordCaps = function(password){
-  if (password != "a"){
-    this.errors.push("Password must have at least one capital letter");
-    this.valid = false;
-  };
+  var format = /[A-Z]/;
+  var message = "Password must have at least one capital letter"
+  this.eval_input(password, format, message);
 };
 
 Validator.prototype.checkPasswordLength = function(password){
-  if (password != "a"){
-    this.errors.push("Password must have at least one capital letter");
+  var message = "Password must be at least 8 characters long"
+  if (password.length < 8 == true){
+    this.errors.push(message);
     this.valid = false;
   };
 };
@@ -46,13 +44,15 @@ Validator.prototype.validate = function(email, password){
 };
 
 Validator.prototype.show_errors = function(){
-
   $.each(this.errors, function(index, value){
     $('#errors').append("<li>" + value + "</li>");
   });
   validator.valid = true;
   validator.errors = [];
 }
+
+
+
 
 // shorthand for $(document).ready();
 $(function(){
@@ -69,19 +69,9 @@ $(function(){
 
     if (validator.valid == false) {
       validator.show_errors();
+    } else {
+      $(this).unbind('submit').submit();
     };
 
   });
 });
-
-    // $('#errors').append("<li></li>")
-// When the user clicks the "Sign Up" button
-// They should be notified if any of the following conditions are NOT true
-// - The email conforms to the standard pattern
-// - The password has at least 8 characters
-// - The password has at least one capital letter
-// - The password has at least one numeric character
-
-// If any of the above conditions are false
-// - The form is not allowed to be submitted
-// - Error messages are dislpayed
