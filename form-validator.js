@@ -17,6 +17,12 @@ Validator.prototype.validate = function(email, password){
   this.checkEmail(email);
 };
 
+Validator.prototype.show_errors = function(){
+  $.each(this.errors, function(index, value){
+    $('#errors').append("<li>" + value + "</li>");
+  });
+}
+
 $(function(){
 
   validator = new Validator();
@@ -31,18 +37,12 @@ $(function(){
     validator.validate(email)
 
     if (validator.valid == false) {
-      console.log(validator.errors);
-
-      $.each(validator.errors, function(index, value){
-        $('#errors').append("<li>" + value + "</li>")
-      });
-
+      validator.show_errors();
+      };
 
       validator.valid = true;
       validator.errors = [];
-    }
-
-  });
+    });
 });
 
     // $('#errors').append("<li></li>")
