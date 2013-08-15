@@ -3,17 +3,22 @@ function Validator(){
   this.valid = true
 };
 
+Validator.prototype.eval_input = function(input, format, message){
+  if (input.match(format) == null ){
+    this.errors.push(message);
+    this.valid = false;
+  }
+}
+
 Validator.prototype.checkEmail = function(email){
  var format = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
-
-  if (email.match(format) == null ){
-    this.errors.push("Must be a valid email");
-    this.valid = false;
-  };
+ var message = "Must be a valid email"
+ this.eval_input(email, format, message);
 };
 
 Validator.prototype.checkPasswordNumeric = function(password){
-  if (password != "a"){
+  var format = /\d/;
+  if (password.match(format) == null ){
     this.errors.push("Password must have at least one numeric character (0-9");
     this.valid = false;
   };
