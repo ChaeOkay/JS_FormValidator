@@ -13,18 +13,24 @@ Validator.prototype.checkEmail = function(email){
   };
 };
 
+Validator.prototype.checkPassword = function(password){
+ //come back and fill out password
+}
+
 Validator.prototype.validate = function(email, password){
   this.checkEmail(email);
+  this.checkPassword(password)
 };
 
 Validator.prototype.show_errors = function(){
   $.each(this.errors, function(index, value){
     $('#errors').append("<li>" + value + "</li>");
   });
+  validator.valid = true;
+  validator.errors = [];
 }
 
 $(function(){
-
   validator = new Validator();
 
   $('form').on('submit', function(e){
@@ -34,15 +40,13 @@ $(function(){
     var email = $(':input[type="text"]').val();
     var pswd = $(':input[type="password"]').val();
 
-    validator.validate(email)
+    validator.validate(email, pswd);
 
     if (validator.valid == false) {
       validator.show_errors();
-      };
+    };
 
-      validator.valid = true;
-      validator.errors = [];
-    });
+  });
 });
 
     // $('#errors').append("<li></li>")
