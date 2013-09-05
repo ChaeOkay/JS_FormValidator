@@ -40,7 +40,7 @@ ErrorMsgs.prototype.validate = function(){
 $(function(){
   $('form').on('submit', function(e){
     e.preventDefault();
-    $('#errorlist li').remove()
+    $('#errors li').remove()
 
     var email = $('input[name="email"]').val();
     var password = $('input[name="password"]').val();
@@ -49,7 +49,7 @@ $(function(){
 
     if (msg.errors.length > 0 ){
       $.each(msg.errors, function(index, value){
-        $('#errorlist').append('<li>' + value + '</li>');
+        $('#errors').append('<li>' + value + '</li>');
       });
     } else {
       $(this).unbind('submit').submit();
